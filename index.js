@@ -10,8 +10,9 @@ var ele = document.createElement("option")
 ele.value=i.name
 	return ele
 })
-aggTypeList.appendChild(options[0])
-window.haha=aggTypeList
+options.map(function (item){
+aggTypeList.appendChild(item)
+}) 
 
 	aggTypeList.id='aggTypeList'
 
