@@ -6,30 +6,35 @@ function appendAgg(domels) {
 
 var aggTypeList= document.createElement('datalist')
 var options=domels.map(function(i){
-const ele = document.createElement("option")
+var ele = document.createElement("option")
 ele.value=i.name
 	return ele
 })
 aggTypeList.appendChild(options[0])
+window.haha=aggTypeList
 
+	aggTypeList.id='aggTypeList'
 
   const aggType = document.createElement('input')
-aggType.list=aggTypeList
+aggType.setAttribute('list','aggTypeList')
   aggType.placeholder='aggType'
+	window.aggtype=aggType
   const streamid = document.createElement('input')
   streamid.placeholder="streamid"
-
   newAgg.innerText='newAgg'
   newAgg.onclick= function(){
 	  document.body.appendChild(createAggRoot(streamid.value,aggType.value,console.log))
 	}
   div.appendChild(newAgg)
+	  div.appendChild(aggTypeList)
 	  div.appendChild(aggType)
 	  div.appendChild(streamid)
   div.appendChild(newAgg)
   return div
 	}
+window.onload = function() {
 document.body.appendChild(appendAgg([{name:'nam'},{name:'nm'}]))
+};
 function createAggRoot(stream_id,aggType,action) {
 
   const newPrp = document.createElement('button')
@@ -39,7 +44,7 @@ function createAggRoot(stream_id,aggType,action) {
 	  newPrp.innerText="new agg"
 	  newPrp.onclick=function (){
 const prpTypeQuery=this.parentElement.querySelector('#prpType')
-		appendPrp(stream_id,prpTypeQuery.value,action)
+		document.body.appendChild(appendPrp(stream_id,prpTypeQuery.value,action))
 	  }
   const span = document.createElement('span')
 	  span.innerText='streamid:'+stream_id+';of type:'+aggType
@@ -56,7 +61,7 @@ const prpTypeQuery=this.parentElement.querySelector('#prpType')
   div.appendChild(newPrp)
   div.appendChild(el)
   return div
-	}
+}
 function appendPrp(stream_id,prpType,action) {
   const div = document.createElement('div')
   const span = document.createElement('span')
@@ -80,5 +85,5 @@ action(obj)
   div.appendChild(span)
   div.appendChild(el)
   div.appendChild(btn)
-  document.querySelector('#form').appendChild(div)
+  return div
  }
