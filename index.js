@@ -37,7 +37,7 @@ function createAggRoot(stream_id,aggType,action) {
   prpType.placeholder="type"
 	  newPrp.innerText="new agg"
 	  newPrp.onclick=function (){
-		appendPrp(stream_id,newPrp.value,action)
+		appendPrp(stream_id,prpType.value,action)
 	  }
 
 
@@ -57,17 +57,14 @@ function createAggRoot(stream_id,aggType,action) {
   div.appendChild(el)
   return div
 	}
-
-
-function appendPrp(stream_id,whty,action) {
+function appendPrp(stream_id,prpType,action) {
   const div = document.createElement('div')
   const span = document.createElement('span')
-  span.innerText=whty+';streamid:'+stream_id
+  span.innerText='prpType:'+prpType+';streamid:'+stream_id
 	  div.stream_id=stream_id
 	  div.id="prp"
   div.style.background='red'
   div.style.padding='12px'
-
   const el = document.createElement('input')
   const btn = document.createElement('button')
   btn.innerText='vl'
@@ -76,7 +73,7 @@ console.log(this.value)
 var obj={
 		value:this.parentNode.querySelector("input").value,
 		stream_id:this.parentNode.stream_id,
-		whty:whty
+		prpType:prpType
 	}
 action(obj)
   }
