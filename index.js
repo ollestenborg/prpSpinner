@@ -34,7 +34,7 @@ aggType.setAttribute('list','aggTypeList')
   return div
 	}
 window.onload = function() {
-document.body.appendChild(appendAgg([{name:'nam'},{name:'nm'}]))
+//document.body.appendChild(appendAgg([{name:'nam'},{name:'nm'}]))
 };
 function createAggRoot(stream_id,aggType,action) {
 
