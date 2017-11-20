@@ -33,16 +33,14 @@ document.body.appendChild(appendAgg([{name:'nam'},{name:'nm'}]))
 function createAggRoot(stream_id,aggType,action) {
 
   const newPrp = document.createElement('button')
-  const prpType = document.createElement('input')
+   prpType = document.createElement('input')
   prpType.placeholder="prpType"
   prpType.id="prpType"
 	  newPrp.innerText="new agg"
 	  newPrp.onclick=function (){
-this.parentElement.querySelector('#prpType')
-		appendPrp(stream_id,prpType.value,action)
+const prpTypeQuery=this.parentElement.querySelector('#prpType')
+		appendPrp(stream_id,prpTypeQuery.value,action)
 	  }
-
-
   const span = document.createElement('span')
 	  span.innerText='streamid:'+stream_id+';of type:'+aggType
   const div = document.createElement('div')
