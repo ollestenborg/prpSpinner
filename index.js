@@ -34,9 +34,11 @@ function createAggRoot(stream_id,aggType,action) {
 
   const newPrp = document.createElement('button')
   const prpType = document.createElement('input')
-  prpType.placeholder="type"
+  prpType.placeholder="prpType"
+  prpType.id="prpType"
 	  newPrp.innerText="new agg"
 	  newPrp.onclick=function (){
+this.parentElement.querySelector('#prpType')
 		appendPrp(stream_id,prpType.value,action)
 	  }
 
