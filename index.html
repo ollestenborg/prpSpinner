@@ -1,0 +1,72 @@
+<div id="form">
+<input class='warning' />
+  
+<button class='' id="createAggRoot">Add new aggregate root</button>
+<button class='' id="createPRP">Add new prop</button>
+hej
+</div>
+<script>
+document.querySelector('#createPRP').onclick=function (){
+appendPrp('grej','person',console.log)
+}
+
+function appendAgg(stream_id,whty,action) {
+
+  const newPrp = document.createElement('button')
+	  newPrp.onclick=function (){
+		  appendPrp(stream_id,whty,action)
+	  }
+
+
+  const span = document.createElement('span')
+  span.innerText=whty
+  const div = document.createElement('div')
+	  div.stream_id=stream_id
+	  div.id="prp"
+
+  const el = document.createElement('input')
+  const btn = document.createElement('button')
+  btn.innerText='vl'
+  btn.onclick=function(){
+console.log(this.value)
+var obj={
+		value:this.parentNode.querySelector("input").value,
+		stream_id:this.parentNode.stream_id,
+		whty:whty
+	}
+action(obj)
+  }
+  div.appendChild(span)
+  div.appendChild(newPrp)
+  div.appendChild(el)
+  div.appendChild(btn)
+  document.body.appendChild(div)
+	}
+appendAgg('stramid','typ',console.log)
+
+
+function appendPrp(stream_id,whty,action) {
+  const div = document.createElement('div')
+  const span = document.createElement('span')
+  span.innerText=whty
+	  div.stream_id=stream_id
+	  div.id="prp"
+
+  const el = document.createElement('input')
+  const btn = document.createElement('button')
+  btn.innerText='vl'
+  btn.onclick=function(){
+console.log(this.value)
+var obj={
+		value:this.parentNode.querySelector("input").value,
+		stream_id:this.parentNode.stream_id,
+		whty:whty
+	}
+action(obj)
+  }
+  div.appendChild(span)
+  div.appendChild(el)
+  div.appendChild(btn)
+  document.querySelector('#form').appendChild(div)
+ }
+  </script>
