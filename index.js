@@ -1,4 +1,4 @@
-function appendAgg(domels) {
+function appendAgg(domels,action) {
   const div = document.createElement('div')
   div.domels
   const newAgg = document.createElement('button')
@@ -24,7 +24,10 @@ aggType.setAttribute('list','aggTypeList')
   streamid.placeholder="streamid"
   newAgg.innerText='newAgg'
   newAgg.onclick= function(){
-	  document.body.appendChild(createAggRoot(streamid.value,aggType.value,console.log))
+	  if(!action){
+	 action=console.log 
+	  }
+	  document.body.appendChild(createAggRoot(streamid.value,aggType.value,action))
 	}
   div.appendChild(newAgg)
 	  div.appendChild(aggTypeList)
