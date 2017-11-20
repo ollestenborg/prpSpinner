@@ -1,15 +1,3 @@
-<head>
-<script scr="https://us-central1-blazing-fire-5166.cloudfunctions.net/domels"></script>
-</head>
-<body>
-<div id="form">
-<input class='warning' />
-  
-<button class='' id="createAggRoot">Add new aggregate root</button>
-<button class='' id="createPRP">Add new prop</button>
-hej
-</div>
-<script>
 document.querySelector('#createAggRoot').onclick=function (){
 	appendAgg('grej','person',console.log)
 }
@@ -90,4 +78,3 @@ action(obj)
   div.appendChild(btn)
   document.querySelector('#form').appendChild(div)
  }
-  </script>
