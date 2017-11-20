@@ -1,13 +1,20 @@
-document.querySelector('#createAggRoot').onclick=function (){
-	appendAgg('grej','person',console.log)
-}
-
 function appendAgg(domels) {
   const div = document.createElement('div')
   div.domels
   const newAgg = document.createElement('button')
   newAgg.placeholder='newAgg'
+
+var aggTypeList= document.createElement('datalist')
+var options=domels.map(function(i){
+const ele = document.createElement("option")
+ele.value=i.name
+	return ele
+})
+aggTypeList.appendChild(options[0])
+
+
   const aggType = document.createElement('input')
+aggType.list=aggTypeList
   aggType.placeholder='aggType'
   const streamid = document.createElement('input')
   streamid.placeholder="streamid"
@@ -22,7 +29,7 @@ function appendAgg(domels) {
   div.appendChild(newAgg)
   return div
 	}
-document.body.appendChild(appendAgg())
+document.body.appendChild(appendAgg([{name:'nam'},{name:'nm'}]))
 function createAggRoot(stream_id,aggType,action) {
 
   const newPrp = document.createElement('button')
