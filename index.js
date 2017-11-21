@@ -84,7 +84,7 @@ var obj={
 		stream_id:this.parentNode.stream_id,
 		prpType:prpType
 	}
-action(obj)
+fsto.add(obj)
   }
   div.appendChild(span)
   div.appendChild(el)
