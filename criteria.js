@@ -40,11 +40,10 @@ div.appendChild(addCriteria)
 div.appendChild(search)
 element.appendChild(this.element)
 }
-this.send=() => {
+this.send=()=> {
 const q = this.formToObj()
-fsto.where(q).get().then(function(docs) {
+fsto.where(q[0][0],q[0][1],q[0][2]).get().then(function(docs) {
     	    docs.forEach((doc) => {
-
         console.log(doc.data());
     })
 })
@@ -58,12 +57,10 @@ return field.value
 })
 console.log(criteriaArray)
 })
-
 }
-this.render=() => { 
+this.render=() => {
 const row =document.createElement("div")
 row.className="criteria"
-
 const field =document.createElement("input")
 const operator =options(["==",">","<"])
 const value =document.createElement("input")
