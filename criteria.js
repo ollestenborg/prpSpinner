@@ -42,7 +42,7 @@ element.appendChild(this.element)
 }
 this.send=() => {
 const q = this.formToObj()
-fsto.where(obj).get().then(function(docs) {
+fsto.where(q).get().then(function(docs) {
     	    docs.forEach((doc) => {
 
         console.log(doc.data());
