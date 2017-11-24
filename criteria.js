@@ -47,6 +47,7 @@ fsto.where(q).get().then(function(docs) {
 
         console.log(doc.data());
     })
+})
 }
 this.formToObj=() => {
 var eles=this.element.querySelectorAll(".criteria")
