@@ -40,7 +40,15 @@ div.appendChild(addCriteria)
 div.appendChild(search)
 element.appendChild(this.element)
 }
-this.send=() => { 
+this.send=() => {
+const q = this.formToObj()
+fsto.where(obj).get().then(function(docs) {
+    	    docs.forEach((doc) => {
+
+        console.log(doc.data());
+    })
+}
+this.formToObj=() => {
 var eles=this.element.querySelectorAll(".criteria")
 console.log(eles)
 eles.forEach((ele)=>{
@@ -64,8 +72,6 @@ var arr=[field, operator,value].map((el) => row.appendChild(el))
 this.element.appendChild(row)
 return row
 }
-
-
 }
 
 var tr=new criteria(component())
