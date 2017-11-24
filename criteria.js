@@ -49,14 +49,15 @@ fsto.where(q[0][0],q[0][1],q[0][2]).get().then(function(docs) {
 })
 }
 this.formToObj=() => {
-var eles=this.element.querySelectorAll(".criteria")
+var eles=document.querySelectorAll(".criteria")
 console.log(eles)
-return eles.forEach((ele)=>{
-var criteriaArray=Array.from(ele.children).map((field)=>{
+const hel= Array.from(eles).map((ele)=>{
+return Array.from(ele.children).map((field)=>{
 return field.value
 })
 console.log(criteriaArray)
 })
+return hel
 }
 this.render=() => {
 const row =document.createElement("div")
