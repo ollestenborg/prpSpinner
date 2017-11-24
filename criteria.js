@@ -42,7 +42,8 @@ element.appendChild(this.element)
 }
 this.send=()=> {
 const q = this.formToObj()
-fsto.where(q[0][0],q[0][1],q[0][2]).get().then(function(docs) {
+q.map((crit)=> {fsto=fsto.where(crit[0],crit[1],crit[2])})
+fsto.get().then(function(docs) {
     	    docs.forEach((doc) => {
         console.log(doc.data());
     })
