@@ -51,7 +51,7 @@ fsto.where(q[0][0],q[0][1],q[0][2]).get().then(function(docs) {
 this.formToObj=() => {
 var eles=this.element.querySelectorAll(".criteria")
 console.log(eles)
-eles.forEach((ele)=>{
+return eles.forEach((ele)=>{
 var criteriaArray=Array.from(ele.children).map((field)=>{
 return field.value
 })
