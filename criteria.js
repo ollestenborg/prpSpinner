@@ -27,9 +27,13 @@ return div
 function criteria(div) {
 this.element=div
 
-this.init=(element) => { 
+this.init=(type,element) => { 
 const addCriteria =document.createElement("button")
-const type =document.createElement("input")
+const typeEl =document.createElement("input")
+var select=options(type.p.map((i)=>i.name))
+select.id="typeList"
+
+typeEl.list='typeList'
 
 
 addCriteria.innerText="addCriteria"
