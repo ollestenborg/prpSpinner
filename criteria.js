@@ -83,6 +83,6 @@ return row
 window.onload=()=>  {
   var type=domels.map((i)=>  i.name=='sftw')
 console.log(type.p)
-var type=new criteria(component())
-tr.init(type,document.body)
+var crit=new criteria(component())
+crit.init(type,document.body)
 }
