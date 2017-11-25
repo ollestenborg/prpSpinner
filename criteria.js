@@ -7,7 +7,15 @@ select.appendChild(op)
 })
 return select
 }
-
+function datalist(options, listName){
+const datalist=document.createElement("datalist")
+options.map((item)=>{
+const op=document.createElement("option")
+op.innerText=item
+select.appendChild(op)
+})
+return datalist
+}
 function component(){
 this.uuid=function() {
   function s4() {
