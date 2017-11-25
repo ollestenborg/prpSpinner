@@ -32,9 +32,7 @@ const addCriteria =document.createElement("button")
 const typeEl =document.createElement("input")
 var select=options(type.p.map((i)=>i.name))
 select.id="typeList"
-
 typeEl.list='typeList'
-
 
 addCriteria.innerText="addCriteria"
 addCriteria.onclick=()=>this.render()
@@ -82,7 +80,7 @@ return row
 }
 window.onload=()=>  {
   var type=domels.filter((i)=>  i.name=='sftw')
-console.log(type.p)
+console.log(type[0].p)
 var crit=new criteria(component())
-crit.init(type,document.body)
+crit.init(type[0],document.body)
 }
