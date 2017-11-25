@@ -32,7 +32,7 @@ const addCriteria =document.createElement("button")
 this.typeEl =document.createElement("input")
 var select=options(Object.keys(type.p))
 select.id="typeList"
-typeEl.list='typeList'
+this.typeEl.list='typeList'
 
 addCriteria.innerText="addCriteria"
 addCriteria.onclick=()=>this.render(this.typeEl.value)
