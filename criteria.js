@@ -38,12 +38,16 @@ this.element=div
 this.init=(type,element) => { 
 const addCriteria =document.createElement("button")
 this.typeEl =document.createElement("input")
-var select=options(Object.keys(type.p))
+var select=datalist(Object.keys(type.p))
 select.id="typeList"
 this.typeEl.list='typeList'
 
 addCriteria.innerText="addCriteria"
-addCriteria.onclick=()=>this.render(this.typeEl.value)
+ this.typeObj=type.map((i)=>{
+i.name==this.typeEl.value
+})
+
+addCriteria.onclick=()=>this.render(this.typeObj)
 
 const search =document.createElement("button")
 search.innerText="search"
