@@ -82,7 +82,7 @@ return row
 }
 window.onload=()=>  {
   var type=domels.map((i)=>  i.name=='sftw')
-console.log(hj)
+console.log(type.p)
 var type=new criteria(component())
 tr.init(type,document.body)
 }
