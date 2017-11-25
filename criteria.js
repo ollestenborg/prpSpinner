@@ -74,10 +74,10 @@ this.element.appendChild(row)
 return row
 }
 }
-window.onload(()=>  {
+window.onload=()=>  {
   var hj=domels.map((i)=>  i.name=='sftw')
 console.log(hj)
 var tr=new criteria(component())
 tr.init(types,document.body)
-})
+}
 
