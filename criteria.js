@@ -81,7 +81,7 @@ return row
 }
 }
 window.onload=()=>  {
-  var type=domels.map((i)=>  i.name=='sftw')
+  var type=domels.filter((i)=>  i.name=='sftw')
 console.log(type.p)
 var crit=new criteria(component())
 crit.init(type,document.body)
