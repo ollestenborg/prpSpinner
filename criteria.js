@@ -29,6 +29,9 @@ this.element=div
 
 this.init=(element) => { 
 const addCriteria =document.createElement("button")
+const type =document.createElement("input")
+
+
 addCriteria.innerText="addCriteria"
 addCriteria.onclick=()=>this.render()
 
@@ -66,13 +69,15 @@ row.className="criteria"
 const field =document.createElement("input")
 const operator =options(["==",">","<"])
 const value =document.createElement("input")
-
 var arr=[field, operator,value].map((el) => row.appendChild(el))
-
 this.element.appendChild(row)
 return row
 }
 }
-
+window.onload(()=>  {
+  var hj=domels.map((i)=>  i.name=='sftw')
+console.log(hj)
 var tr=new criteria(component())
-tr.init(document.body)
+tr.init(types,document.body)
+})
+
