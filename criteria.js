@@ -43,6 +43,8 @@ const search =document.createElement("button")
 search.innerText="search"
 search.onclick=()=>this.send()
 
+  div.appendChild(typeEl)
+  div.appendChild(select)
 div.appendChild(addCriteria)
 div.appendChild(search)
 element.appendChild(this.element)
