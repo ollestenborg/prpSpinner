@@ -29,19 +29,19 @@ this.element=div
 
 this.init=(type,element) => { 
 const addCriteria =document.createElement("button")
-const typeEl =document.createElement("input")
+this.typeEl =document.createElement("input")
 var select=options(Object.keys(type.p))
 select.id="typeList"
 typeEl.list='typeList'
 
 addCriteria.innerText="addCriteria"
-addCriteria.onclick=()=>this.render()
+addCriteria.onclick=()=>this.render(this.typeEl.value)
 
 const search =document.createElement("button")
 search.innerText="search"
 search.onclick=()=>this.send()
 
-  div.appendChild(typeEl)
+  div.appendChild(this.typeEl)
   div.appendChild(select)
 div.appendChild(addCriteria)
 div.appendChild(search)
@@ -67,10 +67,11 @@ console.log(criteriaArray)
 })
 return hel
 }
-this.render=() => {
+this.render=(type) => {
 const row =document.createElement("div")
 row.className="criteria"
 const field =document.createElement("input")
+field.value=type
 const operator =options(["==",">","<"])
 const value =document.createElement("input")
 var arr=[field, operator,value].map((el) => row.appendChild(el))
