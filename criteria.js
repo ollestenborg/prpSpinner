@@ -30,7 +30,7 @@ this.element=div
 this.init=(type,element) => { 
 const addCriteria =document.createElement("button")
 const typeEl =document.createElement("input")
-var select=options(type.p.map((i)=>i.name))
+var select=options(Object.keys(type.p))
 select.id="typeList"
 typeEl.list='typeList'
 
