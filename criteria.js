@@ -116,6 +116,6 @@ return row
 window.onload=()=>  {
   var type=domels.filter((i)=>  i.name=='sftw')
 console.log(type[0].p)
-var crit=new criteria(component())
-crit.init(type[0],document.body)
+window.crit=new criteria(component())
+window.crit.init(type[0],document.body)
 }
