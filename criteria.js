@@ -99,7 +99,8 @@ this.addCriteria=(type) => {
   this.render()
 }
 this.render=(type) => {
-  div.innerHTML=''
+  this.element.innerHTML=''
+  this.element.appendChild(header)
 var header =this.header(this.type)
   this.criteria.map((item)=>{
 
@@ -115,7 +116,7 @@ value.value=item.value
 
 var arr=[field, operator,value].map((el) => row.appendChild(el))
 
-this.element.appendChild(header)
+
 this.element.appendChild(row)
 //return row
     
