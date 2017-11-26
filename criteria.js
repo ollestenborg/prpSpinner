@@ -51,7 +51,6 @@ addCriteria.onclick=()=>{
   var typeObj=type.p[this.typeEl.value]
   this.addCriteria(typeObj)
   this.render()
-  
 }
 
 const search =document.createElement("button")
@@ -94,6 +93,8 @@ this.addCriteria=(type) => {
   this.render()
 }
 this.render=(type) => {
+  div.innerHTML=''
+
   this.criteria.map((item)=>{
 
 const row =document.createElement("div")
@@ -108,7 +109,7 @@ value.value=item.name
 
 var arr=[field, operator,value].map((el) => row.appendChild(el))
 this.element.appendChild(row)
-return row
+//return row
     
 })
 }
