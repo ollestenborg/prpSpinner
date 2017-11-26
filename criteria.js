@@ -128,5 +128,5 @@ window.onload=()=>  {
   var type=domels.filter((i)=>  i.name=='sftw')
 console.log(type[0].p)
 window.crit=new criteria(component())
-window.crit.constructor(type[0],document.body)
+window.crit.constructor(domels.filter((data)=>data.name=="credit_check")[0],document.body)
 }
