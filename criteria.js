@@ -100,8 +100,9 @@ this.addCriteria=(type) => {
 }
 this.render=(type) => {
   this.element.innerHTML=''
+  var header =this.header(this.type)
   this.element.appendChild(header)
-var header =this.header(this.type)
+
   this.criteria.map((item)=>{
 
 const row =document.createElement("div")
