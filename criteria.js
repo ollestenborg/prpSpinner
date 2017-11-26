@@ -34,8 +34,9 @@ return div
 
 function criteria(div) {
 this.element=div
+this.criteria=[]
 
-this.init=(type,element) => { 
+this.init=(type,element) => {
 const addCriteria =document.createElement("button")
 this.typeEl =document.createElement("input")
 var select=datalist(Object.keys(type.p))
@@ -49,6 +50,7 @@ addCriteria.innerText="addCriteria"
 addCriteria.onclick=()=>{
   var typeObj=type.p[this.typeEl.value]
 this.render(typeObj)
+  
 }
 
 const search =document.createElement("button")
@@ -81,16 +83,33 @@ console.log(criteriaArray)
 })
 return hel
 }
+
+this.addCriteria=(type) => {
+  var crit={}
+  crit.field=type.name
+  crit.op="=="
+  crit.value=""
+  criteria.push(crit)
+  this.render()
+}
 this.render=(type) => {
+  this.criteria.map((item)=>{
+
 const row =document.createElement("div")
 row.className="criteria"
 const field =document.createElement("input")
-field.value=type
+field.value=item.name
 const operator =options(["==",">","<"])
+operator=item.op
+
 const value =document.createElement("input")
+value=item.name
+
 var arr=[field, operator,value].map((el) => row.appendChild(el))
 this.element.appendChild(row)
 return row
+    
+})
 }
 }
 window.onload=()=>  {
