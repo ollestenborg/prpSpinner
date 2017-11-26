@@ -42,9 +42,9 @@ this.element=element
   this.type=type
 }
 
-this.header=(type,paramElement) => {
+this.header=(type) => {
 this.type=type
-
+const paramElement =document.createElement("div")
 const addCriteria =document.createElement("button")
 this.typeEl =document.createElement("input")
 var select=datalist(Object.keys(type.p))
@@ -52,8 +52,6 @@ select.id="typeList"
 this.typeEl.setAttribute('list','typeList')
 
 addCriteria.innerText="addCriteria"
- 
-
 
 addCriteria.onclick=()=>{
   var typeObj=type.p[this.typeEl.value]
@@ -102,7 +100,7 @@ this.addCriteria=(type) => {
 }
 this.render=(type) => {
   div.innerHTML=''
-
+var header =this.header=(this.type)
   this.criteria.map((item)=>{
 
 const row =document.createElement("div")
@@ -116,6 +114,8 @@ const value =document.createElement("input")
 value.value=item.value
 
 var arr=[field, operator,value].map((el) => row.appendChild(el))
+
+this.element.appendChild(header)
 this.element.appendChild(row)
 //return row
     
