@@ -49,7 +49,8 @@ addCriteria.innerText="addCriteria"
 
 addCriteria.onclick=()=>{
   var typeObj=type.p[this.typeEl.value]
-this.render(typeObj)
+  this.addCriteria(typeObj)
+  this.render()
   
 }
 
