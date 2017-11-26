@@ -44,7 +44,7 @@ this.typeEl.list='typeList'
 
 addCriteria.innerText="addCriteria"
  this.typeObj=type.p[this.typeEl.value]
-})
+
 
 addCriteria.onclick=()=>this.render(this.typeObj)
 
