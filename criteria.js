@@ -43,10 +43,13 @@ select.id="typeList"
 this.typeEl.setAttribute('list','typeList')
 
 addCriteria.innerText="addCriteria"
- this.typeObj=type.p[this.typeEl.value]
+ 
 
 
-addCriteria.onclick=()=>this.render(this.typeObj)
+addCriteria.onclick=()=>{
+  var typeObj=type.p[this.typeEl.value]
+this.render(typeObj)
+}
 
 const search =document.createElement("button")
 search.innerText="search"
