@@ -104,7 +104,7 @@ const operator =options(["==",">","<"])
 operator.value=item.op
 
 const value =document.createElement("input")
-value=item.name
+value.value=item.name
 
 var arr=[field, operator,value].map((el) => row.appendChild(el))
 this.element.appendChild(row)
