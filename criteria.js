@@ -90,7 +90,7 @@ this.addCriteria=(type) => {
   crit.field=type.name
   crit.op="=="
   crit.value=""
-  criteria.push(crit)
+  this.criteria.push(crit)
   this.render()
 }
 this.render=(type) => {
