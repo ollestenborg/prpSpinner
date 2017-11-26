@@ -35,8 +35,16 @@ return div
 function criteria(div) {
 this.element=div
 this.criteria=[]
+this.type={}
 
-this.init=(type,element) => {
+this.constructor=(type,element) => {
+this.element=element
+  this.type=type
+}
+
+this.header=(type,paramElement) => {
+this.type=type
+
 const addCriteria =document.createElement("button")
 this.typeEl =document.createElement("input")
 var select=datalist(Object.keys(type.p))
@@ -57,11 +65,11 @@ const search =document.createElement("button")
 search.innerText="search"
 search.onclick=()=>this.send()
 
-  div.appendChild(this.typeEl)
-  div.appendChild(select)
-div.appendChild(addCriteria)
-div.appendChild(search)
-element.appendChild(this.element)
+  paramElement.appendChild(this.typeEl)
+  paramElement.appendChild(select)
+paramElement.appendChild(addCriteria)
+paramElement.appendChild(search)
+return paramElement
 }
 this.send=()=> {
 const q = this.formToObj()
@@ -86,7 +94,7 @@ return hel
 
 this.addCriteria=(type) => {
   var crit={}
-  crit.field=type.name
+  crit.field=type.field
   crit.op="=="
   crit.value=""
   this.criteria.push(crit)
@@ -100,12 +108,12 @@ this.render=(type) => {
 const row =document.createElement("div")
 row.className="criteria"
 const field =document.createElement("input")
-field.value=item.name
+field.value=item.field
 const operator =options(["==",">","<"])
 operator.value=item.op
 
 const value =document.createElement("input")
-value.value=item.name
+value.value=item.value
 
 var arr=[field, operator,value].map((el) => row.appendChild(el))
 this.element.appendChild(row)
@@ -118,5 +126,5 @@ window.onload=()=>  {
   var type=domels.filter((i)=>  i.name=='sftw')
 console.log(type[0].p)
 window.crit=new criteria(component())
-window.crit.init(type[0],document.body)
+window.crit.constructor(type[0],document.body)
 }
