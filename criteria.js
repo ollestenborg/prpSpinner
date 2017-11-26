@@ -43,8 +43,7 @@ select.id="typeList"
 this.typeEl.list='typeList'
 
 addCriteria.innerText="addCriteria"
- this.typeObj=type.p.map((i)=>{
-i.name==this.typeEl.value
+ this.typeObj=type.p[this.typeEl.value]
 })
 
 addCriteria.onclick=()=>this.render(this.typeObj)
