@@ -40,7 +40,7 @@ const addCriteria =document.createElement("button")
 this.typeEl =document.createElement("input")
 var select=datalist(Object.keys(type.p))
 select.id="typeList"
-this.typeEl.list='typeList'
+this.typeEl.setAttribute('list','typeList')
 
 addCriteria.innerText="addCriteria"
  this.typeObj=type.p[this.typeEl.value]
