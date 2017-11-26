@@ -92,7 +92,7 @@ return hel
 
 this.addCriteria=(type) => {
   var crit={}
-  crit.field=type.field
+  crit.field=type.name
   crit.op="=="
   crit.value=""
   this.criteria.push(crit)
