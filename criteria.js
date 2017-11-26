@@ -101,7 +101,7 @@ row.className="criteria"
 const field =document.createElement("input")
 field.value=item.name
 const operator =options(["==",">","<"])
-operator=item.op
+operator.value=item.op
 
 const value =document.createElement("input")
 value=item.name
