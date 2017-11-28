@@ -72,7 +72,7 @@ return paramElement
 }
 this.send=()=> {
 const q = this.formToObj()
-q.map((crit)=> {fsto=fsto.where(crit[0],crit[1],crit[2])})
+q.map((crit)=> {action=action.where(crit[0],crit[1],crit[2])})
 this.action.get().then(function(docs) {
     	    docs.forEach((doc) => {
         console.log(doc.data());
