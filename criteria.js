@@ -128,6 +128,6 @@ this.element.appendChild(row)
 window.onload=()=>  {
   var type=domels.filter((i)=>  i.name=='sftw')
 console.log(type[0].p)
-window.crit=new criteria(component(),fsdb)
+window.crit=new criteria(component(),fsto)
 window.crit.constructor(domels.filter((data)=>data.name=="credit_check")[0],document.body)
 }
