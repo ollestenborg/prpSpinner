@@ -32,10 +32,11 @@ div.component=this.uuid()
 return div
 }
 
-function criteria(div) {
+function criteria(div,action) {
 this.element=div
 this.criteria=[]
 this.type={}
+this.action=action
 
 this.constructor=(type,element) => {
 this.element=element
@@ -72,7 +73,7 @@ return paramElement
 this.send=()=> {
 const q = this.formToObj()
 q.map((crit)=> {fsto=fsto.where(crit[0],crit[1],crit[2])})
-fsto.get().then(function(docs) {
+this.action.get().then(function(docs) {
     	    docs.forEach((doc) => {
         console.log(doc.data());
     })
@@ -127,6 +128,6 @@ this.element.appendChild(row)
 window.onload=()=>  {
   var type=domels.filter((i)=>  i.name=='sftw')
 console.log(type[0].p)
-window.crit=new criteria(component())
+window.crit=new criteria(component(),fsdb)
 window.crit.constructor(domels.filter((data)=>data.name=="credit_check")[0],document.body)
 }
