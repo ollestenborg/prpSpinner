@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+  firebaseui-logout
+  <div id="firebaseui-auth-container"></div>
+  <div id="firebaseui-logout" onclick="firebase.auth().signOut()">logout</div>
+<div id="crits">
+	</div>
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/2.4.1/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.1/firebaseui.css" />
+<script src="https://us-central1-blazing-fire-5166.cloudfunctions.net/domels"></script>
+
+<script type="module">
+alert("Inline module executed3333");
+import uuid from "https://rawgit.com/ollestenborg/public_repo/master/uuid.js"
+import options from "https://rawgit.com/ollestenborg/public_repo/master/options.js"
+import datalist from "https://rawgit.com/ollestenborg/public_repo/master/datalist.js"
+import Firebase from "./firebase.js"
+
+const fs=new Firebase(localStorage.getItem('apiKey'))
+window.fs=fs
+
+
+import Store from "./vanillaStore.js"
+
+const helper = {options, datalist, fs}
+const store=new Store
+window.store=store
+
+import Criteria from "./criteria.js";
+import Header from "./header.js";
+import GetStream from "./getStream.js";
+const headerHTML =new Header({store, helper})
+const getStream =new GetStream({store, helper})
+
+window.stream=headerHTML
+
+const criteriaDependencies={}
+
+//criteria=new Criteria.create({criteriaDependencies})
+const headerDependencies={}
+function generateCriterias(prevState, state){
+const ele=document.getElementById('crits')
+ele.innerHTML=""
+state.streams.filter(itemm => itemm.format=="ar").map(function(item){
+
+const newEle=document.createElement('div')
+var hr=[]
+if(store.state.streams.length > 0){
+hr=store.state.streams.filter(ite => ite.aggregateRootId==item.streamid && ite.format=="criteria")
+}
+
+newEle.id=item.streamid
+ele.appendChild(newEle)
+const thisType=domels.filter((data)=>data.name==item.type)[0]
+debugger
+Criteria.constructor(thisType,newEle,item.streamid,store,hr)
+})
+}
+store.subscribe(generateCriterias)
+
+//const header=Header({headerDependencies})
+
+import he from "./stream_editor.js";
+
+document.body.appendChild(headerHTML.render())
+document.body.appendChild(getStream.render())
+window.crit=Criteria
+//window.cr=criteria.constructor(domels.filter((data)=>data.name=="credit_check")[0],document.body)
+
+</script>
+idsafdfdsa
+</body>
+</html>

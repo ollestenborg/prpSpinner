@@ -3,7 +3,6 @@ function appendAgg(domels,action) {
   div.domels
   const newAgg = document.createElement('button')
   newAgg.placeholder='newAgg'
-
 var aggTypeList= document.createElement('datalist')
 var options=domels.map(function(i){
 var ele = document.createElement("option")
@@ -12,7 +11,7 @@ ele.value=i.name
 })
 options.map(function (item){
 aggTypeList.appendChild(item)
-}) 
+})
 
 	aggTypeList.id='aggTypeList'
 
@@ -36,13 +35,11 @@ aggType.setAttribute('list','aggTypeList')
   div.appendChild(newAgg)
   return div
 	}
-window.onload = function() {
-//document.body.appendChild(appendAgg([{name:'nam'},{name:'nm'}]))
-};
+//the thing that spits out new prp
 function createAggRoot(stream_id,aggType,action) {
 
   const newPrp = document.createElement('button')
-   prpType = document.createElement('input')
+  prpType = document.createElement('input')
   prpType.placeholder="prpType"
   prpType.id="prpType"
 	  newPrp.innerText="new agg"
@@ -90,4 +87,5 @@ fsto.add(obj)
   div.appendChild(el)
   div.appendChild(btn)
   return div
- }
+}
+export default appendAgg
