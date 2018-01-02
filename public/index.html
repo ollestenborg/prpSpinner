@@ -12,12 +12,15 @@
 <script src="https://cdn.firebase.com/libs/firebaseui/2.4.1/firebaseui.js"></script>
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.1/firebaseui.css" />
 <script src="https://us-central1-blazing-fire-5166.cloudfunctions.net/domels"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.6/Rx.js"></script>
 
 <script type="module">
 alert("Inline module executed3333");
 import uuid from "https://rawgit.com/ollestenborg/public_repo/master/uuid.js"
 import options from "https://rawgit.com/ollestenborg/public_repo/master/options.js"
 import datalist from "https://rawgit.com/ollestenborg/public_repo/master/datalist.js"
+
+
 import Firebase from "./firebase.js"
 
 const fs=new Firebase(localStorage.getItem('apiKey'))
