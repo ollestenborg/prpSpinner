@@ -1,3 +1,3 @@
-export function he(){
-alert("afadf444")
+export function he() {
+    alert("afadf444")
 }

@@ -1,40 +1,58 @@
 	export default class stream {
-		constructor({store,helper}) {
-		this.store=store
-			this.helper=helper
-		}
-getStream(streamid, that) {
-return new Promise((resolve, reject) => {
-var events=that.helper.fs.db.collection("event")
-events.where("aggregateRootId","==",streamid)
-.get().then(function (docs) {
-	self.wtg=docs.docs.map(it => it.data())
-const body=docs.docs.map(it => it.data())
-    	           resolve({type:'createStream',body:body})
-})
+	    constructor({
+	        helper
+	    }) {
+	        //this.store=store
+	        this.helper = helper
+	    }
 
+	    getStream(streamid, that) {
+	        return new Promise((resolve, reject) => {
+	            var events = fs.db.collection("event")
+	            events.where("streamid", "==", streamid)
+	                .get().then(function(docs) {
+	                    const bodies=docs.docs.map(it => {
+				   return Object.assign(it.data(),{id:it.id})
+			    })
+		const ar=bodies.filter(body => body.format=="ar")[0]
 
-})
+window.sub.next({
+	                            type: 'mountObject',
+	                            sender: "getStream",
+	                            body: ar
+	                        })
+				setTimeout(
+	                    bodies.map(body => {
+
+	                        window.sub.next({
+	                            type: 'mountObject',
+	                            sender: "getStream",
+	                            body: body
+	                        })
+	                    }),500)
+	                    const body = docs.docs.map(it => it.data())
+	                        // resolve({type:'createStream',body:body})
+	                })
+	        })
+	    }
+	    render() {
+		    console.log("getStream")
+	        const that = this
+	        this.divElement = document.createElement('div')
+	        this.a = document.createElement('button')
+	        this.streamid = document.createElement('input')
+this.streamid.value="tyu"
+	        this.a.streamid = this.streamid
+	        this.a.inpu = this.inpu
+	        this.a.innerText = 'getStream'
+	            //this.a.store=this.store
+	        this.a.getStream = this.getStream
+	        this.a.onclick = function() {
+
+	            this.getStream(this.streamid.value, that)
+	        }
+	        this.divElement.appendChild(this.streamid)
+	        this.divElement.appendChild(this.a)
+	        return this.divElement
+	    }
 	}
-render() {
-	const that=this
-	this.divElement=document.createElement('div')
-	this.a=document.createElement('a')
-	this.streamid=document.createElement('input')
-
-	this.a.streamid=this.streamid
-	this.a.inpu=this.inpu
-	this.a.innerText='getStream'
-	this.a.store=this.store
-	this.a.getStream=this.getStream
-        this.a.onclick=function (){
-		debugger
-
-        this.store.dispatchPromise(this.getStream(this.streamid.value, that))	
-        }
-console.log(1)
-this.divElement.appendChild(this.a)
-this.divElement.appendChild(this.streamid)
-		return this.divElement
-}
-}

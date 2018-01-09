@@ -4,51 +4,15 @@ import datalist from "https://rawgit.com/ollestenborg/public_repo/master/datalis
 //var cons=crit.constructor(domels.filter((data)=>data.name=="credit_check")[0],document.body)
 //crit.render()
 
-
 function criteria() {
-    this.criteria = []
-    this.create = ({dependencies}) => {
-	    this.dependencies=dependencies
-	    }
-   this.constructor = (type, element=document.body, aggregateRootId,store) => {
-        this.element = element
-        this.type = type
-	this.aggregateRootId=aggregateRootId
-	this.store=store
-        this.criteria = store.state.streams.filter(item=> item.format=="criteria")||[]
-	this.render()
-    }
-	//header is where prps are created
-    this.header = () => {
-        const paramElement = document.createElement("div")
-        const addCriteria = document.createElement("button")
-        const aggregateRootId= document.createElement("span")
-aggregateRootId.innerText=this.aggregateRootId
-        this.typeEl = document.createElement("input")
-        var select = datalist(Object.keys(this.type.p))
-        select.id = "typeList"
-        this.typeEl.setAttribute('list', 'typeList')
-
-        addCriteria.innerText = "addCriteria"
-
-        addCriteria.onclick = () => {
-		debugger
-            var typeObj = this.type.p[this.typeEl.value]
-            this.addCriteria(typeObj,this.aggregateRootId)
-            this.render()
+    this.constructor = (type, element = document.body, streamid) => {
+            this.element = element
+            this.type = type
+            this.streamid = streamid
+            this.subscribe()
         }
-        const search = document.createElement("button")
-        search.innerText = "search"
-        search.onclick = () => this.store.dispatch({format:"criteria",type:"sendForm",streamid:aggregateRootId,body:this.formToObj()})
+        //header is where prps are created
 
-        paramElement.appendChild(aggregateRootId)
-        paramElement.appendChild(this.typeEl)
-        paramElement.appendChild(select)
-        paramElement.appendChild(addCriteria)
-        paramElement.appendChild(search)
-
-        return paramElement
-    }
     this.send = () => {
         const q = this.formToObj()
         q.map((crit) => {
@@ -56,78 +20,104 @@ aggregateRootId.innerText=this.aggregateRootId
         })
         fsto.get().then(function(docs) {
             docs.forEach((doc) => {
-                console.log(doc.data());
+                console.log("criteria.js send()",doc.data());
             })
         })
     }
     this.formToObj = () => {
         var eles = document.querySelectorAll(".criteria")
-        console.log(eles)
         const hel = Array.from(eles).map((ele) => {
             return Array.from(ele.children).map((field) => {
                 return field.value
             })
-            console.log(criteriaArray)
         })
         return hel
     }
 
-    
-    this.addCriteria = (type,aggregateRootId) => {
-        var crit = {}
-        crit.field = type.name
-        crit.op = "=="
-        crit.value = ""
-	crit.aggregateRootId=aggregateRootId
-	crit.format="criteria"
 
-	this.store.dispatch({type:"createStream",streamid:aggregateRootId,body:[crit]})
-        this.render()
+    this.addCriteria = (field, streamid, value = "", op = "==") => {
+        var crit = {}
+        crit.field = field
+        crit.op = op
+        crit.value = value
+        crit.streamid = streamid
+        crit.format = "criteria"
+
+        window.sub.next({
+                type: "createStream",
+	        //msg_id: helper.uuid(),
+                sender: "criteria",
+                streamid: streamid,
+                body: crit
+            })
+            //this.render()
     }
 
-    this.removeCriteria = (type,aggregateRootId) => {
+    this.removeCriteria = (type, streamid) => {}
+    this.subscribe = (item) => {
+	    if(false){
+        var that = this
+        self.sub.subscribe(
+            function(x) {
+                console.log("criteria subscribe()",x)
+                //if (x.type == "mountObject" && x.body.format == "criteria") {
+                if (false) {
+                    document.body.appendChild(that.template(x.body))
+                } else if (x.body == "ar") {
+                    document.body.appendChild(that.header(x.body))
+                }
+            })
 	    }
+    }
+    this.template = (item) => {
+        const row = document.createElement("div")
+        this.streamid = document.createElement("span")
+        this.value = document.createElement("input")
+        this.format = document.createElement("input")
+        this.field = document.createElement("input")
+
+        const insertCriteria = document.createElement("button")
+        const deleteCriteria = document.createElement("button")
+        deleteCriteria.innerText = "deleteCriteria"
+        deleteCriteria.onclick = function(e) {
+            window.sub.next({
+                type: "delete",
+                sender: "criteria.js",
+                streamid: item.id
+            })
+        }
+        insertCriteria.innerText = "insertCriteria"
+        insertCriteria.streamid = item.streamid
+        var that = this
+        insertCriteria.onclick = function(e) {
+		const obj={format:that.format.value,field:that.field.value, streamid:that.streamid.innerText, value:that.value.value, op:that.operator.value}
+
+		window.sub.next({type:"persist",body:obj})
+        }
+        this.streamid.innerText = item.streamid
+        row.className = "criteria"
+	    this.field.id="field"
+        this.field.value = item.field
+
+        this.operator = options(["==", ">", "<"])
+        this.operator.value = item.op
+                this.format.value = item.format
+
+        this.value.key = this.field.value
+        this.value.value = item.value
+        
+
+        this.arr = [this.field, this.operator, this.value, this.streamid, this.format, insertCriteria, deleteCriteria]
+        this.arr.map((el) => row.appendChild(el))
+        this.element.appendChild(row)
+        return row
+    }
     this.render = () => {
         this.element.innerHTML = ''
         var header = this.header()
         this.element.appendChild(header)
-	    debugger
         this.criteria.map((item) => {
-        const row = document.createElement("div")
-        const streamid = document.createElement("span")
-	row.field=item.field
-	const insertCriteria = document.createElement("button")
-		insertCriteria.innerText="insertCriteria"
-insertCriteria.crit=this.criteria
-		insertCriteria.aggregateRootId=item.aggregateRootId
-insertCriteria.onclick=function (e){
-let crit =e.currentTarget.crit
-let field=e.currentTarget.parentElement.field
-e.currentTarget.aggregateRootId
-let thecrit=crit.filter((it)=> it.field==field)
-	console.log(thecrit[0])
-}
-streamid.innerText=item.aggregateRootId
-            row.className = "criteria"
-            const field = document.createElement("input")
-            field.value = item.field
-            const operator = options(["==", ">", "<"])
-            operator.value = item.op
-            const value = document.createElement("input")
-            const format = document.createElement("input")
-format.value=item.format
-
-	    value.key=field.value
-            value.value = item.value
-		value.onchange=(e)=>{
-this.criteria.filter((it)=>it.field==e.currentTarget.key)[0].value=e.currentTarget.value
-		  console.log(this.criteria)
-		}
-
-            var arr = [field, operator, value, insertCriteria,streamid,format].map((el) => row.appendChild(el))
-            this.element.appendChild(row)
-            return row
-
+            this.tempplate(item)
         })
     }
 }
