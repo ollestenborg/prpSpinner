@@ -21,8 +21,10 @@ window.sub.next({
 	                            sender: "getStream",
 	                            body: ar
 	                        })
+
+		const criterias=bodies.filter(body => body.format=="criteria")
 				setTimeout(
-	                    bodies.map(body => {
+	                    criterias.map(body => {
 
 	                        window.sub.next({
 	                            type: 'mountObject',
