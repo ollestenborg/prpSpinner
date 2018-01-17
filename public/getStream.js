@@ -8,30 +8,37 @@
 
 	    getStream(streamid, that) {
 	        return new Promise((resolve, reject) => {
+
 	            var events = fs.db.collection("event")
+events.doc(streamid).get().then(function(doc) {
+	console.log("int",doc.data())
+	const obj=doc.data()
+	obj.streamid=doc.id
+	obj.id=doc.id
+window.sub.next({
+	                            type: 'mountObject',
+	                            sender: "getStream",
+	                            body: obj
+	                        })
+	                        })
+
 	            events.where("streamid", "==", streamid)
 	                .get().then(function(docs) {
 	                    const bodies=docs.docs.map(it => {
 				   return Object.assign(it.data(),{id:it.id})
 			    })
-		const ar=bodies.filter(body => body.format=="ar")[0]
 
-window.sub.next({
-	                            type: 'mountObject',
-	                            sender: "getStream",
-	                            body: ar
-	                        })
-
-		const criterias=bodies.filter(body => body.format=="criteria")
+		const criterias=bodies.filter(body => body.format=="criteria" || body.format=="keyval")
+					debugger
 				setTimeout(
 	                    criterias.map(body => {
-
 	                        window.sub.next({
 	                            type: 'mountObject',
 	                            sender: "getStream",
 	                            body: body
 	                        })
-	                    }),500)
+	                    }),2500)
+
 	                    const body = docs.docs.map(it => it.data())
 	                        // resolve({type:'createStream',body:body})
 	                })

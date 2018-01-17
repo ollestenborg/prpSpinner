@@ -8,11 +8,11 @@ export default function(Criteria, domels) {
             this.identity = ("mountCriteria")
             const item = x.body
                 //if (x.type == "mountCriteria" && x.body.format == "criteria") {
-            if (x.type == "mountObject" && x.body.format == "criteria") {
+            if (x.type == "mountObject" && x.body.format == "keyval") {
                 console.log("mountCriteria.js", x)
                 console.log("see template", template(x.body))
                 const divElement = template(x.body)
-		    const streamDiv=document.querySelector('[streamid='+x.body.streamid+']');
+		    const streamDiv=document.querySelector('[streamid="'+x.body.streamid+'"]');
                 streamDiv.appendChild(divElement)
                 return divElement
             }
@@ -35,13 +35,10 @@ const template = (item) => {
 
     this.streamid.id = item.streamid
     this.streamid.setAttribute("streamid",item.streamid)
-    row.className = "criteria"
+    row.className = "keyval"
     this.field.id = "field"
     this.field.value = item.field
 
-    this.operator = options(["==", ">", "<"])
-    this.operator.value = item.op
-    this.operator.setAttribute("id","op")
     this.format.value = item.format
 
     this.value.key = this.field.value
@@ -53,13 +50,13 @@ const template = (item) => {
     deleteCriteria.onclick = function(e) {
             window.sub.next({
                 type: "delete",
-                sender: "criteria.js",
+                sender: "mountKeyval.js",
                 body: this.objId
             })
         }
         //hade to save state in insertCriteria in order to not get last item state in loop
     insertCriteria.item =
-        insertCriteria.innerText = "insertCriteria"
+        insertCriteria.innerText = "insertKeyVal"
     insertCriteria.streamid = item.streamid
     insertCriteria.onclick = function(e) {
         const parentDiv = e.currentTarget.parentElement
@@ -68,8 +65,7 @@ const template = (item) => {
             format: that.format.value,
             field: that.field.value,
             streamid: that.streamid.innerText,
-            value: hmv,
-            op: that.operator.value
+            value: hmv
         }
         window.sub.next({
             type: "persist",
@@ -78,7 +74,7 @@ const template = (item) => {
         })
     }
 
-    this.arr = [this.field, this.operator, this.value, this.streamid, this.format, insertCriteria, deleteCriteria,this.id]
+    this.arr = [this.field, this.value, this.streamid, this.format, insertCriteria, deleteCriteria,this.id]
     this.arr.map((el) => row.appendChild(el))
     return row
 }

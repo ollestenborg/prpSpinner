@@ -9,13 +9,13 @@ export default function({
 
             if (x.type == "get_data_from_db") {
 		    x.body.filter.map(crit => {
-var fsto=fs.db.collection("event")
+const fsto=fs.db.collection("event")
             fsto = fsto.where(crit["field"], crit["op"], crit["value"])
 fsto.get().then(function(docs) {
             docs.forEach((doc) => {
-		    debugger
                 console.log("criteria.js send()",doc.data());
 
+		window.events.push(doc.data())
 		localStorage.setItem(helper.uuid(),JSON.stringify(doc.data()))
             })
         })
@@ -24,12 +24,16 @@ fsto.get().then(function(docs) {
 
 
             if (x.type == "persist") {
-
             console.log("rxfs persist", x)
-                fs.db.collection("event").add(x.body).then(function(docRef) {
+
+                fs.db.collection("event").add(Object.assign(x.body,{inserted:new Date()})).then(function(docRef) {
                     const obj = Object.assign(x.body, {
                         id: docRef.id
                     })
+			if(obj.format=="ar"){
+		obj.streamid=obj.id
+		}
+				
                     const message = {
                         type: "mountObject",
                         body: obj,

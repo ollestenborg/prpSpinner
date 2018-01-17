@@ -7,13 +7,11 @@
 	    }
 	    render() {
 		    this.identity="headers.js"
-	        this.opt = this.helper.datalist(domels.map(na => na.name))
 	        this.divElement = document.createElement('div')
 	        this.a = document.createElement('button')
 	        this.inpu = document.createElement('input')
 	        this.streamid = document.createElement('input')
 		    this.streamid.value="tyu"
-	        this.opt.id = "types"
 	        this.inpu.setAttribute("list", "types")
 	        this.inpu.onchange = function() {}
 	        this.a.streamid = this.streamid
@@ -34,8 +32,7 @@
 	            console.log("inpu", this.inpu.value)
 	        }
 	        console.log(this.identity)
-	        this.divElement.appendChild(this.opt)
-	        this.divElement.appendChild(this.inpu)
+	        	        this.divElement.appendChild(this.inpu)
 	        this.divElement.appendChild(this.a)
 	        this.divElement.appendChild(this.streamid)
 	        return this.divElement

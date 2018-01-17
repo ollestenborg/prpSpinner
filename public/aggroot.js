@@ -7,11 +7,11 @@
          console.log("aggroot.js",x)
              const type = domels.filter(it => it.name == x.body.type)[0]
 		 const item=x.body
-		 debugger
              const paramElement = document.createElement("div")
              const criteriaContainer = document.createElement("div")
              criteriaContainer.setAttribute("streamid",x.body.streamid)
              const addCriteria = document.createElement("button")
+             const addKeyVal = document.createElement("button")
              const deleteAggroot = document.createElement("button")
 		 deleteAggroot.innerText="delete aggroot"
 deleteAggroot.onclick=(e)=> {
@@ -31,10 +31,9 @@ deleteAggroot.onclick=(e)=> {
              id.value = x.body.id
              const format = document.createElement("input")
              format.value = x.body.format
-             var select = helper.datalist(Object.keys(type.p))
-             select.id = "typeList"+type.name
-             fieldEl.setAttribute('list', 'typeList'+type.name)
+                          fieldEl.setAttribute('list', 'typeList'+type.name)
              addCriteria.innerText = "addCriteria"
+             addKeyVal.innerText = "addKeyVal"
              addCriteria.onclick = (e) => {
                  var typeObj = type.p[fieldEl.value]
                  var crit = {}
@@ -42,12 +41,27 @@ deleteAggroot.onclick=(e)=> {
                  //crit.field = "hejheje"
                  crit.op = "=="
                  crit.value = ""
-                 crit.streamid = x.body.streamid
+                 crit.streamid = item.id
                  crit.format = "criteria"
                  window.sub.next({
-                     type: "mountObject",
+                     type: "persist",
                      sender: "aggroot.js",
                      streamid: crit.streamid,
+                     body: crit
+                 })
+             }
+addKeyVal.onclick = (e) => {
+                 var typeObj = type.p[fieldEl.value]
+                 var crit = {}
+                 crit.field = fieldEl.value
+                 crit.value = ""
+                     crit.streamid=item.id,
+                 crit.format = "keyval"
+	debugger
+                 window.sub.next({
+                     type: "persist",
+                     sender: "aggroot.js",
+                     streamid: item.streamid,
                      body: crit
                  })
              }
@@ -69,7 +83,6 @@ tryy.map((crit) => {
         })
         fsto.get().then(function(docs) {
             docs.forEach((doc) => {
-		    debugger
                 console.log("criteria.js send()",doc.data());
             })
         })
@@ -78,13 +91,14 @@ tryy.map((crit) => {
              paramElement.appendChild(streamid)
              paramElement.appendChild(typeEl)
              paramElement.appendChild(fieldEl)
-             paramElement.appendChild(select)
              paramElement.appendChild(addCriteria)
+             paramElement.appendChild(addKeyVal)
              paramElement.appendChild(search)
              paramElement.appendChild(id)
              paramElement.appendChild(format)
              paramElement.appendChild(criteriaContainer)
              paramElement.appendChild(deleteAggroot)
+
 
              document.body.appendChild(paramElement)
          }

@@ -1,4 +1,4 @@
-	//import initData from "./init_data.js"; 
+	import initData from "./init_data.js"; 
         import uuid from "https://rawgit.com/ollestenborg/public_repo/master/uuid.js" 
 	import options from "https://rawgit.com/ollestenborg/public_repo/master/options.js" 
 	import datalist from "https://rawgit.com/ollestenborg/public_repo/master/datalist.js" 
@@ -11,16 +11,19 @@
         import GetStream from "./getStream.js"; 
 	import mountStreams from "./mountStreams.js"; 
 	import mountCriteria from "./mountCriteria.js"; 
+	import mountKeyVal from "./mountKeyVal.js"; 
 	import rxlog from "./rxlog.js"; 
 export default function(){
 	const fs=new Firebase(localStorage.getItem('apiKey'))
-	window.fs=fs 
+	window.fs=fs
 	const helper = {options, datalist, fs,formToObj,uuid}
+        initData({helper}) 
 	rxlog({helper})
 	aggroot({domels,helper})
 	const headerHTML =new Header({helper})
 	const getStream =new GetStream({helper})
 	mountCriteria()
+	mountKeyVal()
 	rxfs({ helper})
 	window.stream=headerHTML
 	const criteriaDependencies={}
