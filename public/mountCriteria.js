@@ -22,6 +22,7 @@ const template = (item) => {
     this.item = item
     var that = this
     const row = document.createElement("div")
+	row.setAttribute("eventEntityId",item.id) 
     this.streamid = document.createElement("span")
     this.value = document.createElement("input")
     this.id = document.createElement("input")

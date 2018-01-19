@@ -11,6 +11,7 @@
         import GetStream from "./getStream.js"; 
 	import mountStreams from "./mountStreams.js"; 
 	import mountCriteria from "./mountCriteria.js"; 
+	import mountResult from "./mountResultRow.js"; 
 	import mountKeyVal from "./mountKeyVal.js"; 
 	import rxlog from "./rxlog.js"; 
 export default function(){
@@ -24,6 +25,7 @@ export default function(){
 	const getStream =new GetStream({helper})
 	mountCriteria()
 	mountKeyVal()
+        mountResult()
 	rxfs({ helper})
 	window.stream=headerHTML
 	const criteriaDependencies={}

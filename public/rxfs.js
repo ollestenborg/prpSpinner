@@ -46,6 +46,7 @@ fsto.get().then(function(docs) {
             console.log("rxfs persist", x)
                 fs.db.collection("event").doc(x.body).delete().then(function(docRef) {
                     console.log("Deleted: ", docRef);
+	    document.querySelector('[evententityid='+x.body+']').remove()
                 })
             }
         }
