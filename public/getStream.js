@@ -4,13 +4,15 @@
 	    }) {
 	        //this.store=store
 	        this.helper = helper
+this.getStream()
 	    }
-
-	    getStream(streamid, that) {
-	        return new Promise((resolve, reject) => {
-
+getStream(){
+    window.sub.subscribe(
+        function(x) {
+            const item = x.body
+            if (x.type == "getStream") {
 	            var events = fs.db.collection("event")
-events.doc(streamid).get().then(function(doc) {
+events.doc(item.streamid).get().then(function(doc) {
 	console.log("int",doc.data())
 	const obj=doc.data()
 	obj.streamid=doc.id
@@ -21,8 +23,7 @@ window.sub.next({
 	                            body: obj
 	                        })
 	                        })
-
-	            events.where("streamid", "==", streamid)
+	            events.where("streamid", "==", item.streamid)
 	                .get().then(function(docs) {
 	                    const bodies=docs.docs.map(it => {
 				   return Object.assign(it.data(),{id:it.id})
@@ -42,8 +43,9 @@ window.sub.next({
 	                    const body = docs.docs.map(it => it.data())
 	                        // resolve({type:'createStream',body:body})
 	                })
-	        })
-	    }
+	        }
+	    })
+		    }
 	    render() {
 		    console.log("getStream")
 	        const that = this
@@ -57,8 +59,7 @@ this.streamid.value="tyu"
 	            //this.a.store=this.store
 	        this.a.getStream = this.getStream
 	        this.a.onclick = function() {
-
-	            this.getStream(this.streamid.value, that)
+sub.next({type:"getStream",body:{streamid:this.streamid.value}})
 	        }
 	        this.divElement.appendChild(this.streamid)
 	        this.divElement.appendChild(this.a)

@@ -22,7 +22,14 @@ const template = (docs) => {
 const result=document.createElement('div')
 docs.map(docc=> {
 	const ele=document.createElement('div')
-	ele.innerText=JSON.stringify(docc.data())
+const obj=docc.data()
+	ele.onclick=e=>{
+sub.next({
+	type:"getStream",
+	body:{streamid:obj.id}
+	})	
+	}
+	ele.innerText=JSON.stringify(obj)
 	result.appendChild(ele)
 })
 	return result
