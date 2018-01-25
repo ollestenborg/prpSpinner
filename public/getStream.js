@@ -29,7 +29,7 @@ window.sub.next({
 				   return Object.assign(it.data(),{id:it.id})
 			    })
 
-		const criterias=bodies.filter(body => body.format=="criteria" || body.format=="keyval")
+		const criterias=bodies.filter(body => body.format=="criteria" || body.format=="keyval"||body.format=="relation")
 					debugger
 				setTimeout(
 	                    criterias.map(body => {

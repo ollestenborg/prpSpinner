@@ -12,7 +12,7 @@ export default function(Criteria, domels) {
                 console.log("mountCriteria.js", x)
                 console.log("see template", template(x.body))
                 const divElement = template(x.body)
-		    const streamDiv=document.querySelector('[streamid="'+x.body.streamid+'"]');
+		    const streamDiv=document.querySelector('[streamcontainer="'+x.body.streamid+'"]>#keyval');
                 streamDiv.appendChild(divElement)
                 return divElement
             }

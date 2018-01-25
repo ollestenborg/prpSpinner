@@ -5,14 +5,14 @@ import datalist from "https://rawgit.com/ollestenborg/public_repo/master/datalis
 export default function(Criteria, domels) {
     window.sub.subscribe(
         function(x) {
-            this.identity = ("mountResultRow")
+            this.identity = "mountResultRow"
             const item = x.body
                 //if (x.type == "mountCriteria" && x.body.format == "criteria") {
             if (x.type == "getResult") {
                 console.log("mountCriteria.js", x)
                 console.log("see template", template(x.body))
                 const divElement = template(x.body, x.streamid)
-		    const streamDiv=document.querySelector('[streamid="'+x.streamid+'"]');
+		    const streamDiv=document.querySelector('[streamcontainer="'+x.streamid+'"]>#resultList');
                 streamDiv.appendChild(divElement)
                 return divElement
             }

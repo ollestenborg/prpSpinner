@@ -12,7 +12,7 @@ export default function(Criteria, domels) {
                 console.log("mountCriteria.js", x)
                 console.log("see template", template(x.body))
                 const divElement = template(x.body)
-		    const streamDiv=document.querySelector('[streamid="'+x.body.streamid+'"]');
+		    const streamDiv=document.querySelector('[streamcontainer="'+x.body.streamid+'"]>#criteria');
                 streamDiv.appendChild(divElement)
                 return divElement
             }
@@ -31,7 +31,6 @@ const template = (item) => {
     this.format = document.createElement("input")
     this.field = document.createElement("input")
     const insertCriteria = document.createElement("button")
-    const deleteCriteria = document.createElement("button")
     this.streamid.innerText = item.streamid
 
     this.streamid.id = item.streamid
@@ -49,15 +48,16 @@ const template = (item) => {
     this.value.id = "value"
     this.value.key = this.field.value
     this.value.value = this.item.value
-    deleteCriteria.innerText = "deleteCriteria"
-    deleteCriteria.objId = item.id
-    deleteCriteria.onclick = function(e) {
+    const deleteCriteria=Object.assign(document.createElement("button"),{
+	    innerText: "deleteCriteria",
+	    objId:that.item.id,
+	    onclick:e=> {
             window.sub.next({
                 type: "delete",
                 sender: "criteria.js",
-                body: this.objId
+                body: that.item.id
             })
-        }
+        }})
         //hade to save state in insertCriteria in order to not get last item state in loop
     insertCriteria.item =
         insertCriteria.innerText = "insertCriteria"
