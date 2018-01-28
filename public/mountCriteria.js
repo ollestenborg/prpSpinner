@@ -19,58 +19,58 @@ export default function(Criteria, domels) {
         })
 }
 const template = (item) => {
-    this.item = item
+    item
     var that = this
     const row = document.createElement("div")
 	row.setAttribute("eventEntityId",item.id) 
-    this.streamid = document.createElement("span")
-    this.value = document.createElement("input")
-    this.id = document.createElement("input")
+    const streamid = document.createElement("span")
+    const value = document.createElement("input")
+    const id = document.createElement("input")
     id.value=item.id
  
-    this.format = document.createElement("input")
-    this.field = document.createElement("input")
+    const format = document.createElement("input")
+    const field = document.createElement("input")
     const insertCriteria = document.createElement("button")
-    this.streamid.innerText = item.streamid
 
-    this.streamid.id = item.streamid
-    this.streamid.setAttribute("streamid",item.streamid)
+    streamid.innerText = item.streamid
+    streamid.id = item.streamid
+    streamid.setAttribute("streamid",item.streamid)
     row.className = "criteria"
-    this.field.id = "field"
-    this.field.value = item.field
+    field.id = "field"
+    field.value = item.field
 
-    this.operator = options(["==", ">", "<"])
-    this.operator.value = item.op
-    this.operator.setAttribute("id","op")
-    this.format.value = item.format
+    const operator = options(["==", ">", "<"])
+    operator.value = item.op
+    operator.setAttribute("id","op")
+    format.value = item.format
+const getFormat=function(){
+return format.value
+}
 
-    this.value.key = this.field.value
-    this.value.id = "value"
-    this.value.key = this.field.value
-    this.value.value = this.item.value
+    value.key = field.value
+    value.id = "value"
+    value.key = field.value
+    value.value = item.value
     const deleteCriteria=Object.assign(document.createElement("button"),{
 	    innerText: "deleteCriteria",
-	    objId:that.item.id,
+	    objId:item.id,
 	    onclick:e=> {
             window.sub.next({
                 type: "delete",
                 sender: "criteria.js",
-                body: that.item.id
+                body: item.id
             })
         }})
         //hade to save state in insertCriteria in order to not get last item state in loop
-    insertCriteria.item =
         insertCriteria.innerText = "insertCriteria"
     insertCriteria.streamid = item.streamid
-    insertCriteria.onclick = function(e) {
-        const parentDiv = e.currentTarget.parentElement
-        const hmv = parentDiv.querySelector("#value").value
+		const insertCriteriaOnclick= function() {
         const obj = {
-            format: that.format.value,
-            field: that.field.value,
-            streamid: that.streamid.innerText,
-            value: hmv,
-            op: that.operator.value
+            format: format.value,
+            field: field.value,
+            streamid: streamid.innerText,
+            value: value.value,
+            op: operator.value
         }
         window.sub.next({
             type: "persist",
@@ -78,8 +78,9 @@ const template = (item) => {
             sender: "mountCriteria.js, insertCriteria onclick"
         })
     }
+insertCriteria.addEventListener('click', insertCriteriaOnclick)
 
-    this.arr = [this.field, this.operator, this.value, this.streamid, this.format, insertCriteria, deleteCriteria,this.id]
-    this.arr.map((el) => row.appendChild(el))
+    const arr = [field, operator, value, streamid, format, insertCriteria, deleteCriteria,id]
+    arr.map((el) => row.appendChild(el))
     return row
 }

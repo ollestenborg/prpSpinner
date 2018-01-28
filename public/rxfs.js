@@ -21,7 +21,7 @@ fsto.get().then(function(docs) {
         })
 })
 }
-
+		
 
             if (x.type == "persist") {
             console.log("rxfs persist", x)
@@ -42,11 +42,20 @@ fsto.get().then(function(docs) {
                     window.sub.next(message)
                     console.log("Document written with ID: ", docRef.id);
                 })
-            } else if (x.type == "delete") {
+            } else if (x.type == "delete_ar") {
+fs.db.collection("read").doc(x.body).delete().then(function(docRef) {
+                    console.log("Deleted on read: ", docRef);
+                })
+fs.db.collection("event").doc(x.body).delete().then(function(docRef) {
+                    console.log("Deleted: ", docRef);
+	    document.querySelector('[streamcontainer="'+x.body+'"]').remove()
+                })
+	    }
+             else if (x.type == "delete") {
             console.log("rxfs persist", x)
                 fs.db.collection("event").doc(x.body).delete().then(function(docRef) {
                     console.log("Deleted: ", docRef);
-	    document.querySelector('[evententityid='+x.body+']').remove()
+	    document.querySelector('[evententityid="'+x.body+'"]').remove()
                 })
             }
         }

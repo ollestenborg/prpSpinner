@@ -29,7 +29,15 @@ sub.next({
 	body:{streamid:obj.id}
 	})	
 	}
+	switch(obj.type){
+		case "whty":
+	ele.innerText=obj.name ? obj.name : "xxx"
+			break;
+		default:
 	ele.innerText=JSON.stringify(obj)
+			    break;
+	}
+
 	result.appendChild(ele)
 })
 	return result

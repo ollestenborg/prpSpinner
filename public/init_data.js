@@ -20,11 +20,9 @@ opt.id = "types"
 prp.get().then(function(docs) {
             docs.forEach((doc) => {
                 console.log("criteria.js send()",doc.data());
-
-
-
 		window.prp.push(doc.data())
 		    })
+
 	window.whty.forEach(function (item){
 const curPrp=window.prp.filter((itemSub)=> itemSub.whty===item.name)	
 debugger
@@ -34,6 +32,5 @@ var select = helper.datalist(curPrp.map(na => na.name))
              select.id = "typeList"+item.name
 	        document.body.appendChild(select)
 	})
-
-		    })
+})
 }

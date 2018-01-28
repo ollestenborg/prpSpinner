@@ -7,11 +7,20 @@
          console.log("aggroot.js",x)
              const type = domels.filter(it => it.name == x.body.type)[0]
 		 const item=x.body
-             const paramElement = document.createElement("div")
-
+                 const paramElement = document.createElement("div")
+		 paramElement.style.padding="8px"
+		 paramElement.style.margin="8px"
+		 paramElement.style.borderStyle="solid"
+		 paramElement.style.borderWidth="thin"
 
 		 const criteria=helper.el("details",{id:"criteria"})
 		 criteria.appendChild(helper.el("summary",{innerText:"criteria"}))
+
+                 const actions=helper.el("details",{id:"actions"})
+		 actions.appendChild(helper.el("summary",{innerText:"actions"}))
+
+const diagnos=helper.el("details",{id:"diagnos"})
+		 diagnos.appendChild(helper.el("summary",{innerText:"diagnos"}))
 
 		 const keyval=Object.assign(document.createElement("details"),{id:"keyval",open:true})
 		 keyval.appendChild(Object.assign(document.createElement("summary"),{innerText:"properties"}))
@@ -22,15 +31,15 @@
                  const resultList=Object.assign(document.createElement("details"),{id:"resultList"})
 		 resultList.appendChild(Object.assign(document.createElement("summary"),{innerText:"resultList"}))
 
+                 paramElement.setAttribute("streamContainer",x.body.streamid)
+                 paramElement.streamid=x.body.id
 
-             paramElement.setAttribute("streamContainer",x.body.streamid)
-paramElement.streamid=x.body.id
              const criteriaContainer = document.createElement("div")
              criteriaContainer.setAttribute("streamid",x.body.streamid)
              const addCriteria = document.createElement("button")
              const from = document.createElement("button")
              const addRelation= document.createElement("button")
-		 addRelation.innerText="addRelation"
+	     addRelation.innerText="addRelation"
 
 const addRelationOnclick =function (){
 window.sub.next({
@@ -47,12 +56,11 @@ addRelation.addEventListener('click', addRelationOnclick.bind(this))
 		 deleteAggroot.innerText="delete aggroot"
 deleteAggroot.onclick=(e)=> {
  window.sub.next({
-                     type: "delete",
+                     type: "delete_ar",
                      sender: "aggroot.js deleteAggroot onclick()",
-                     body:item
+                     body:item.id
                  })
 }
-		 
              
              const streamid = document.createElement("span")
              const typeEl = document.createElement("span")
@@ -60,6 +68,7 @@ deleteAggroot.onclick=(e)=> {
              streamid.innerText = x.body.streamid
              const id = document.createElement("input")
              const fieldEl = document.createElement("input")
+		 fieldEl.placeholder="fieldEl"
              id.value = x.body.id
              const format = document.createElement("input")
              format.value = x.body.format
@@ -118,6 +127,8 @@ addKeyVal.onclick = (e) => {
 	 //}) }
 
              search.onclick = (e) => {
+
+		     e.currentTarget.parentElement.querySelector("#resultList").setAttribute("open",true)
 		     const parentElement=e.currentTarget.parentElement
 console.log("formtoobj",helper.formToObj(e.currentTarget.parentElement.querySelector("#criteria>.criteria")))
 		     debugger
@@ -125,7 +136,7 @@ var tryy=Array.from(e.currentTarget.parentElement.querySelectorAll("#criteria>.c
 .map((ele)=>{ 
 	console.log(ele)
 	return Array.from(ele.children)})
-.map((field)=>{ 
+.map((field)=>{
 	console.log(field)
 	const obj={value:field.filter(it => it.id=='value')[0].value,field:field.filter(it => it.id=='field')[0].value,op:field.filter(it => it.id=='op')[0].value }
 	return obj })
@@ -145,22 +156,20 @@ tryy.map((crit) => {
 })
 }
 
-             paramElement.appendChild(streamid)
-             paramElement.appendChild(typeEl)
-             paramElement.appendChild(fieldEl)
-             paramElement.appendChild(addKeyVal)
-             paramElement.appendChild(addCriteria)
-             paramElement.appendChild(addRelation)
-             paramElement.appendChild(search)
-             paramElement.appendChild(id)
-             paramElement.appendChild(format)
-             paramElement.appendChild(criteriaContainer)
-             paramElement.appendChild(deleteAggroot)
-             paramElement.appendChild(from)
-             paramElement.appendChild(resultList)
-             paramElement.appendChild(criteria)
-             paramElement.appendChild(keyval)
-             paramElement.appendChild(relation)
+	 const ee=[streamid,id,format,typeEl].map((el) => diagnos.appendChild(el))
+	const dd=[deleteAggroot,from].map((el) => actions.appendChild(el))
+            const arr =
+		 [
+             fieldEl,
+addCriteria,addRelation,addKeyVal,search,
+             criteriaContainer,
+             resultList,
+             criteria,
+	     actions,
+	diagnos,
+             keyval,
+             relation]
+arr.map((el) => paramElement.appendChild(el))
              document.body.appendChild(paramElement)
          }
      })

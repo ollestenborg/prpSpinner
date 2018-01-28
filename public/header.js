@@ -11,8 +11,6 @@
 		    this.divElement.setAttribute("header",true)
 	        this.a = document.createElement('button')
 	        this.inpu = document.createElement('input')
-	        this.streamid = document.createElement('input')
-		this.streamid.value="tyu"
 
 this.saseHeader = document.createElement('button')
                 this.saseHeader.innerText="saved Search"
@@ -38,21 +36,15 @@ sub.next({type:"getStream",body:{streamid:"uPR61VKut1XbuLeRWGWN"}})
 	                    sender: this.identity,
 	                    body: {
 	                        format: "ar",
-	                        type: this.inpu.value,
-	                        streamid: this.streamid.value
+	                        type: this.inpu.value
 	                    }
 	                })
 	                //this.store.dispatch({type:'createStream',body:[{format:"ar",type:this.inpu.value,streamid:this.streamid.value}]})	
 	            console.log("inpu", this.inpu.value)
 	        }
 	        console.log(this.identity)
-	        this.divElement.appendChild(this.saseHeader)
-	        this.divElement.appendChild(getTypes)
-	        this.divElement.appendChild(document.createElement('hr'))
-	        	        this.divElement.appendChild(this.inpu)
-	        this.divElement.appendChild(this.a)
-	        this.divElement.appendChild(this.streamid)
-
+    const arr = [this.saseHeader, getTypes, document.createElement('hr'), this.inpu, this.a]
+arr.map((el) => this.divElement.appendChild(el))
 	        return this.divElement
 	    }
 	}
