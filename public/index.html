@@ -10,12 +10,14 @@
     <div id="firebaseui-auth-container"></div>
     <div id="firebaseui-logout" onclick="firebase.auth().signOut()">logout</div>
     <div id="crits">
+	    {{message}}
     </div>
     <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/2.4.1/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.1/firebaseui.css" />
-    <script src="https://us-central1-blazing-fire-5166.cloudfunctions.net/domels"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!--<script src="https://us-central1-blazing-fire-5166.cloudfunctions.net/domels"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.6/Rx.js"></script>
 
     <script>

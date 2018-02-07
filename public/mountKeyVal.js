@@ -23,29 +23,30 @@ const template = (item) => {
     var that = this
     const row = document.createElement("div")
 	row.setAttribute("eventEntityId",item.id) 
-    this.streamid = document.createElement("span")
-    this.value = document.createElement("input")
-    this.id = document.createElement("input")
+    const streamid = document.createElement("span")
+    const value = document.createElement("input")
+    const id = document.createElement("input")
     id.value=item.id
  
-    this.format = document.createElement("input")
-    this.field = document.createElement("input")
+    const format = document.createElement("input")
+    const field = document.createElement("input")
     const insertCriteria = document.createElement("button")
     const deleteCriteria = document.createElement("button")
-    this.streamid.innerText = item.streamid
 
-    this.streamid.id = item.streamid
-    this.streamid.setAttribute("streamid",item.streamid)
+    streamid.innerText = item.streamid
+
+    streamid.id = item.streamid
+    streamid.setAttribute("streamid",item.streamid)
     row.className = "keyval"
-    this.field.id = "field"
-    this.field.value = item.field
+    field.id = "field"
+    field.value = item.field
 
-    this.format.value = item.format
+    format.value = item.format
 
-    this.value.key = this.field.value
-    this.value.id = "value"
-    this.value.key = this.field.value
-    this.value.value = this.item.value
+    value.key = field.value
+    value.id = "value"
+    value.key = field.value
+    value.value = item.value
     deleteCriteria.innerText = "deleteCriteria"
     deleteCriteria.objId = item.id
     deleteCriteria.onclick = function(e) {
@@ -63,9 +64,9 @@ const template = (item) => {
         const parentDiv = e.currentTarget.parentElement
         const hmv = parentDiv.querySelector("#value").value
         const obj = {
-            format: that.format.value,
-            field: that.field.value,
-            streamid: that.streamid.innerText,
+            format: format.value,
+            field: field.value,
+            streamid: streamid.innerText,
             value: hmv
         }
         window.sub.next({
@@ -75,7 +76,7 @@ const template = (item) => {
         })
     }
 
-    this.arr = [this.field, this.value, this.streamid, this.format, insertCriteria, deleteCriteria,this.id]
-    this.arr.map((el) => row.appendChild(el))
+    const arr = [field, value, streamid, format, insertCriteria, deleteCriteria,id]
+    arr.map((el) => row.appendChild(el))
     return row
 }

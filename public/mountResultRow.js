@@ -23,7 +23,9 @@ const result=document.createElement('div')
 docs.map(docc=> {
 	const ele=document.createElement('div')
 const obj=docc.data()
+	obj.id=docc.id
 	ele.onclick=e=>{
+		debugger
 sub.next({
 	type:"getStream",
 	body:{streamid:obj.id}

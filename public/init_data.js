@@ -15,7 +15,6 @@ whty.get().then(function(docs) {
 const opt = helper.datalist(window.whty.map(na => na.name))
 opt.id = "types"
 	        document.body.appendChild(opt)
-
 		    })
 prp.get().then(function(docs) {
             docs.forEach((doc) => {
@@ -24,8 +23,7 @@ prp.get().then(function(docs) {
 		    })
 
 	window.whty.forEach(function (item){
-const curPrp=window.prp.filter((itemSub)=> itemSub.whty===item.name)	
-debugger
+const curPrp=window.prp.filter((itemSub)=> itemSub.prp_type===item.name)	
 var select = helper.datalist(curPrp.map(na => na.name))
 		console.log(select)
 		console.log("dfas",item)

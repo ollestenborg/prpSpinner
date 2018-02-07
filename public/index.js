@@ -9,14 +9,22 @@
 	import rxfs from "./rxfs.js" 
         import Criteria from "./criteria.js"; 
 	import Header from "./header.js"; 
-        import GetStream from "./getStream.js"; 
+        import GetStream from "./getStream.js";
 	import mountStreams from "./mountStreams.js"; 
-	import mountCriteria from "./mountCriteria.js"; 
+	import MountCriteria from "./mountCriteria.js"; 
 	import mountResult from "./mountResultRow.js"; 
 	import mountRelation from "./mountRelation.js"; 
 	import mountKeyVal from "./mountKeyVal.js"; 
+	import NewInstanceFromType from "./newInstanceFromType.js"; 
+	import GetInstances from "./getInstances.js";
 	import rxlog from "./rxlog.js"; 
-export default function(){
+var app2 = new Vue({
+  el: '#crits',
+  data: {
+    message: 'You loaded this page on ' + new Date().toLocaleString()
+  }
+})
+        export default function(){
 	const template=Template()
 	const fs=new Firebase(localStorage.getItem('apiKey'))
 	window.fs=fs
@@ -34,9 +42,14 @@ function qda(query){
 	window.helper=helper
         initData({helper}) 
 	rxlog({helper})
-	aggroot({domels,helper})
+	aggroot({helper})
+	const newInstanceFromType=NewInstanceFromType({helper})
+	const getInstances=GetInstances({helper})
+window.getInstances=getInstances
+	window.newInstanceFromType=newInstanceFromType
 	const headerHTML =new Header({helper})
 	const getStream =new GetStream({helper})
+	const mountCriteria=MountCriteria({helper})
 	mountCriteria()
 	mountKeyVal()
         mountResult()
@@ -44,7 +57,7 @@ function qda(query){
 	rxfs({ helper})
 	window.stream=headerHTML
 	const criteriaDependencies={}
-	const criteria=Criteria.constructor({domels,helper}) 
+	const criteria=Criteria.constructor({helper}) 
 	const headerDependencies={}
 	document.body.appendChild(headerHTML.render())
 	document.body.appendChild(getStream.render())
