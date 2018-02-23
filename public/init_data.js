@@ -1,34 +1,53 @@
 export default ({helper}) => {
 const fsto=fs.db.collection("read")
+            const fun = fsto.where("type","==","fun")
             const prp = fsto.where("type","==","prpAttr")
+            const action = fsto.where("type","==","action")
             const whty = fsto.where("type","==","whty")
-
-window.whty=[]
-window.prp=[]
+window.whtyList=[]
+window.prpList=[]
+window.funList={}
+window.actionList=[]
+fun.get().then(function(docs) {
+            docs.forEach((doc) => {
+		    let obj=doc.data()
+window.funList[obj.name] = new Function(obj.args, obj.code)
+		    })
+	})
 whty.get().then(function(docs) {
             docs.forEach((doc) => {
 
-                console.log("criteria.js send()",doc.data());
-		window.whty.push(doc.data())
+		window.whtyList.push(doc.data())
 
 	        		    })
-const opt = helper.datalist(window.whty.map(na => na.name))
+const opt = helper.datalist(window.whtyList.map(na => na.name))
 opt.id = "types"
 	        document.body.appendChild(opt)
 		    })
 prp.get().then(function(docs) {
             docs.forEach((doc) => {
-                console.log("criteria.js send()",doc.data());
-		window.prp.push(doc.data())
+		window.prpList.push(doc.data())
 		    })
 
-	window.whty.forEach(function (item){
-const curPrp=window.prp.filter((itemSub)=> itemSub.prp_type===item.name)	
+	window.whtyList.forEach(function (item){
+const curPrp=window.prpList.filter((itemSub)=> itemSub.prp_type===item.name)	
 var select = helper.datalist(curPrp.map(na => na.name))
-		console.log(select)
-		console.log("dfas",item)
              select.id = "typeList"+item.name
 	        document.body.appendChild(select)
 	})
 })
+action.get().then(function(docs) {
+            docs.forEach((doc) => {
+		console.log("dfas",docs)
+let obj=doc.data()
+window.actionList.push(obj)
+})
+})
+setTimeout(function (){
+document.getElementById("getTypes").click()
+
+setTimeout(function (){
+document.getElementById("getInstancesElem").click()
+},2000)
+},500)
 }

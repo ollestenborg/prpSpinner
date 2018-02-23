@@ -21,12 +21,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.6/Rx.js"></script>
 
     <script>
+localStorage.setItem('apiKey','AIzaSyA-R2U6lYN3IiQ0TQHZ-heL6d1Mv6pG7-0')
+window.local=document.location.origin.indexOf("localhost")?true:false
+
         const sub = new self.Rx.Subject()
         window.sub = sub
     </script>
-
-    <script type="module">
-    import index from './index.js'
+<script type="module"> 
+    import index from "./index.js"
     index()
     </script>
 </body>

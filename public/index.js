@@ -7,59 +7,63 @@
 	import Firebase from "./firebase.js" 
 	import aggroot from "./aggroot.js" 
 	import rxfs from "./rxfs.js" 
-        import Criteria from "./criteria.js"; 
-	import Header from "./header.js"; 
-        import GetStream from "./getStream.js";
-	import mountStreams from "./mountStreams.js"; 
-	import MountCriteria from "./mountCriteria.js"; 
-	import mountResult from "./mountResultRow.js"; 
-	import mountRelation from "./mountRelation.js"; 
-	import mountKeyVal from "./mountKeyVal.js"; 
-	import NewInstanceFromType from "./newInstanceFromType.js"; 
-	import GetInstances from "./getInstances.js";
-	import rxlog from "./rxlog.js"; 
+        import Criteria from "./component/criteria.js"; 
+	import Header from "./component/header.js"; 
+        import GetStream from "./actions/getStream.js";
+	import mountStreams from "./component/mountStreams.js"; 
+	import MountCriteria from "./component/mountCriteria.js"; 
+	import mountResult from "./component/mountResultRow.js"; 
+	import mountRelation from "./component/mountRelation.js"; 
+	import mountKeyVal from "./component/mountKeyVal.js"; 
+	import NewInstanceFromType from "./actions/newInstanceFromType.js"; 
+	import NewPrp from "./actions/newPrp.js";
+	import GetInstances from "./actions/getInstances.js";
+	import Actions from "./actions/index.js";
+	import Componensts from "./component/index.js";
+	import rxlog from "./rxlog.js";
+
+
+
 var app2 = new Vue({
   el: '#crits',
   data: {
     message: 'You loaded this page on ' + new Date().toLocaleString()
   }
 })
-        export default function(){
+	        export default function(){
+			const store={}
+			var dispatcher=function (message){
+				window.sub.next(message)
+				console.log("disp",message)
+				if(message.type=="mountCriteria"){
+window.component["mountCriteria"](message.body)
+				}
+
+		
+			}
 	const template=Template()
-	const fs=new Firebase(localStorage.getItem('apiKey'))
+const fs=new Firebase(localStorage.getItem('apiKey'))
 	window.fs=fs
+const helper = {options, datalist, fs,formToObj,uuid,el,template}
+        const actions=Actions(helper)
+			window.actions=actions
+	const state={actions,helper,store,dispatcher}
+        const component=Componensts(state)
+window.component=component
+	
+
 	function el(element,obj){
-		console.log(obj)
 	return Object.assign(document.createElement(element),obj)
 	}
-function qd(query,obj){
-	return Object.assign(document.querySelector(query),obj)
-	}
-function qda(query){
-	return document.querySelectorAll(query)
-	}
-	const helper = {options, datalist, fs,formToObj,uuid,el}
+
 	window.helper=helper
-        initData({helper}) 
+
+	const getStream =new GetStream({helper})
 	rxlog({helper})
 	aggroot({helper})
-	const newInstanceFromType=NewInstanceFromType({helper})
-	const getInstances=GetInstances({helper})
-window.getInstances=getInstances
-	window.newInstanceFromType=newInstanceFromType
-	const headerHTML =new Header({helper})
-	const getStream =new GetStream({helper})
+	
 	const mountCriteria=MountCriteria({helper})
-	mountCriteria()
-	mountKeyVal()
-        mountResult()
-        mountRelation({helper})
-	rxfs({ helper})
-	window.stream=headerHTML
-	const criteriaDependencies={}
-	const criteria=Criteria.constructor({helper}) 
-	const headerDependencies={}
-	document.body.appendChild(headerHTML.render())
-	document.body.appendChild(getStream.render())
-	document.body.appendChild(document.createElement("hr"))
+
+		rxfs({ helper})
+	        initData({helper}) 
 }

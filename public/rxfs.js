@@ -42,12 +42,18 @@ x.body.id=helper.uuid()
                     
                     window.sub.next(message)
                 })
-            }  else if (x.type == "delete") {
-		    if(x.body.op==":"&&x.body.type=="whty"){
-fs.db.collection("read").doc(x.body).delete().then(function() {
+            }  
+		else if (x.type == "delete_ar") {
+	fs.db.collection("read").doc(x.body).delete().then(function() {
                     console.log("Deleted on read: ", x.body);
                 })
-		    }
+fs.db.collection("event").doc(x.body).delete().then(function() {
+                    console.log("Deleted: ", x.body);
+                    document.querySelector('[evententityid="' + x.body + '"]').remove()
+                })
+	}
+		else if (x.type == "delete") {
+		    
                 console.log("rxfs persist", x)
                 fs.db.collection("event").doc(x.body).delete().then(function() {
                     console.log("Deleted: ", x.body);
