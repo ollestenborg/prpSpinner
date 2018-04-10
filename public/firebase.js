@@ -1,7 +1,7 @@
 class firebaseClass {
-    constructor(apiKey) {
+    constructor(app) {
         const config = {
-            apiKey: apiKey,
+            apiKey: app.firebaseApiKey,
             authDomain: "blazing-fire-5166.firebaseapp.com",
             databaseURL: "https://blazing-fire-5166.firebaseio.com",
             projectId: "blazing-fire-5166",

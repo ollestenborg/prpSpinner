@@ -1,5 +1,5 @@
 export default function({
-    helper
+    helper, dispatcher
 }) {
     window.sub.subscribe(
         function(x) {
@@ -23,6 +23,31 @@ export default function({
             }
 
 
+            if (x.type == "addAgg") {
+console.log("rxfs persist", x)
+		    if(!x.body.id){
+x.body.id=helper.uuid()
+		    }
+		fs.db.collection("event").doc(x.body.id).set(Object.assign(x.body, {
+                    inserted: new Date()
+                })).then(()=> {
+                        x.body.streamid = x.body.id
+				debugger
+		fs.db.collection("read").doc(x.body.id).set({type:x.body.value}).then(docRef=>{
+fs.db.collection("read").doc(x.body.id).get().then((data)=>{
+const obj=data.data()
+	obj.streamid=data.id
+	obj.id=data.id
+                   console.log(data.data()) 
+const message = {
+                        type: "mountResultRow",
+                        body: obj,
+                        sender: "rxfs"
+                    }
+	dispatcher(message)
+})
+			})
+		    })}
             if (x.type == "persist") {
                 console.log("rxfs persist", x)
 		    if(!x.body.id){
@@ -31,11 +56,9 @@ x.body.id=helper.uuid()
 		fs.db.collection("event").doc(x.body.id).set(Object.assign(x.body, {
                     inserted: new Date()
                 })).then(function() {
-                    if (x.body.field=="type" && x.body.op==":") {
                         x.body.streamid = x.body.id
-                    }
                     const message = {
-                        type: "mountObject",
+                        type: "mountCriteria",
                         body: x.body,
                         sender: "rxfs"
                     }
