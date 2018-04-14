@@ -17,13 +17,14 @@ import formToObj from "https://rawgit.com/ollestenborg/public_repo/master/formTo
 export default function() {
   const app = {};
   app.actions = {};
+  app.services = {};
   window.actions = app.actions;
   app.component = {};
   window.component = app.component;
   app.helper = {};
   app.store = {};
   app.firebaseApiKey = localStorage.getItem("apiKey");
-  window.actions = app.actions;
+  window.services = app.services;
   app.endPoint = {
     google:
       "https://storage.googleapis.com/blazing-fire-5166.appspot.com/public/",
@@ -54,6 +55,12 @@ export default function() {
       name: "index",
       fileType: "js",
       relativePath: "actions",
+      returnType: "fun"
+    },
+{
+      name: "index",
+      fileType: "js",
+      relativePath: "services",
       returnType: "fun"
     },
     {
@@ -145,6 +152,7 @@ document.querySelector('domels-details').addAr(data)
       if (component.returnType == "fun") {
         scope[component.name] = module.default(app);
       } else if (component.returnType == "class") {
+	      debugger
         scope[component.name] = new module.default(app);
       } else if (component.returnType == "object") {
       }
@@ -173,8 +181,12 @@ document.querySelector('domels-details').addAr(data)
   const dependencies = [];
   app.dispatcher = msg => {
     if (window.actions[msg.type]) {
-      window.actions[msg.type](msg.body);
-    } else {
+      window.actions[msg.type](msg.body[0]);
+    } 
+    else if (window.services[msg.type]) {
+      window.services[msg.type](msg.body[0]);
+  }
+	  else {
       window.component[msg.type](msg.body[0]);
     }
   };
@@ -185,9 +197,7 @@ document.querySelector('domels-details').addAr(data)
     app.path = "./";
   }
 
-  //app.htmlHelpers=HtmlHelpers()
 
-  window.component = app.component;
   window.app = app;
 
   const template = Template();
@@ -201,4 +211,5 @@ document.querySelector('domels-details').addAr(data)
   };
   window.actions = app.actions;
   window.component = app.component;
+  window.services = app.services;
 }
